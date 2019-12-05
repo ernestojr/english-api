@@ -3,6 +3,7 @@
   "description": "Dependency injection in express and mocha tests.",
   "version": "0.0.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "nodemon src/server.js --exec babel-node",
     "prettier": "prettier --config ./.prettierrc --write src/**/*.js",
