@@ -1,7 +1,7 @@
 {
   "name": "dependency-injection-express.",
   "description": "Dependency injection in express and mocha tests.",
-  "version": "0.0.0",
+  "version": "0.2.0",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -19,7 +19,7 @@
     "method-override": "^3.0.0",
     "mongoose": "^5.7.13",
     "morgan": "~1.9.1",
-    "winston": "^3.2.1"
+    "winston": "2.4.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.4",

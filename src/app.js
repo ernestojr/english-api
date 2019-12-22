@@ -53,7 +53,7 @@ class Application {
   }
 
   logger() {
-    this.log = logger;
+    this.logger = logger;
   }
 
   setting() {
@@ -104,7 +104,7 @@ class Application {
   errorHandler() {
     this.app.use((err, req, res, next) => {
       const { message, statusCode } = err;
-      this.log.error(message);
+      this.logger.error(message);
       res.status(statusCode || 500).json({ message });
     });
   }
@@ -113,7 +113,7 @@ class Application {
     const port = this.app.get('port');
     await database(this);
     await this.app.listen(port);
-    this.log.info(`Server in port ${port}`);
+    this.logger.info(`Server in port ${port}`);
   }
 }
 

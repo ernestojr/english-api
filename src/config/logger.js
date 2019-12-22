@@ -1,14 +1,13 @@
-import { format, transports, createLogger } from 'winston';
+import { Logger, transports } from 'winston';
 
-const { colorize, combine, timestamp, printf } = format;
-
-export default createLogger({
-  format: combine(
-    colorize(),
-    timestamp(),
-    printf(({ level, message, timestamp }) => {
-      return `${timestamp} ${level}: ${message}`;
+export default new Logger({
+  level: 'silly',
+  exitOnError: false,
+  transports: [
+    new transports.Console({
+      prettyPrint: true,
+      colorize: true,
+      json: false,
     }),
-  ),
-  transports: [new transports.Console({ level: 'debug' })],
+  ],
 });

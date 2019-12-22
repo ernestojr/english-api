@@ -5,9 +5,10 @@ export default async (app) => {
   try {
     await mongoose.connect(MONGODB_URI, {
       useNewUrlParser: true,
+      useUnifiedTopology: true,
     });
-    app.log.info('Database connected.');
+    app.logger.info('Database connected.');
   } catch (error) {
-    app.log.error(error);
+    app.logger.error(error);
   }
 };
