@@ -84,14 +84,14 @@ describe('ProjectService', function() {
   });
 
   it('Should delete one project by id success.', async () => {
-    sandbox.stub(app.models.Project, 'removeOne').resolves(1);
+    sandbox.stub(app.models.Project, 'deleteOne').resolves(1);
     sandbox.stub(app.models.Project, 'findById').resolves(1);
     const instance = new ProjectService(app);
     await instance.deleteById(1, {});
     expect(app.models.Project.findById).to.have.been.calledOnce;
     expect(app.models.Project.findById).to.have.been.calledOnceWith(1);
-    expect(app.models.Project.removeOne).to.have.been.calledOnce;
-    expect(app.models.Project.removeOne).to.have.been.calledOnceWith({
+    expect(app.models.Project.deleteOne).to.have.been.calledOnce;
+    expect(app.models.Project.deleteOne).to.have.been.calledOnceWith({
       _id: 1,
     });
   });

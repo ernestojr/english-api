@@ -7,13 +7,14 @@ const model = {
   findById: function() {},
   countDocuments: function() {},
   updateOne: function() {},
-  removeOne: function() {},
+  deleteOne: function() {},
 };
 
 export const app = {
   models: {
     Project: { ...model },
     Task: { ...model },
+    Module: { ...model },
   },
   services: {
     UtilService: new UtilService({}),

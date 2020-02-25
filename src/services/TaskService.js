@@ -89,7 +89,7 @@ class TaskService extends Base {
   async deleteById(_id) {
     const { Task } = this.app.models;
     await this.getById(_id);
-    return Task.removeOne({ _id });
+    return Task.deleteOne({ _id });
   }
 }
 

@@ -82,13 +82,13 @@ describe('TaskService', function() {
   });
 
   it('Should delete one task by id success.', async () => {
-    sandbox.stub(app.models.Task, 'removeOne').resolves(1);
+    sandbox.stub(app.models.Task, 'deleteOne').resolves(1);
     sandbox.stub(app.models.Task, 'findById').resolves(1);
     const instance = new TaskService(app);
     await instance.deleteById(1, {});
     expect(app.models.Task.findById).to.have.been.calledOnce;
     expect(app.models.Task.findById).to.have.been.calledOnceWith(1);
-    expect(app.models.Task.removeOne).to.have.been.calledOnce;
-    expect(app.models.Task.removeOne).to.have.been.calledOnceWith({ _id: 1 });
+    expect(app.models.Task.deleteOne).to.have.been.calledOnce;
+    expect(app.models.Task.deleteOne).to.have.been.calledOnceWith({ _id: 1 });
   });
 });
