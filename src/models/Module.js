@@ -1,26 +1,27 @@
 /**
- * @file Task.js
+ * @file Module.js
  * @version 1.0.0
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
 
 import { Schema, Types } from 'mongoose';
+import values from 'lodash/values';
 import Model from '../core/Model';
 
 /**
- * @class Task
- * @classdesc Task class.
+ * @class Module
+ * @classdesc Module class.
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
-class Task extends Model {
+class Module extends Model {
   /**
-   * @method getById
+   * @method getName
    * @author Ernesto Rojas <ernesto20145@gmail.com>
    * @description This method get model name.
    * @returns {string} Model name.
    */
   getName() {
-    return 'Task';
+    return 'Module';
   }
 
   /**
@@ -39,15 +40,8 @@ class Task extends Model {
           type: String,
           required: true,
         },
-        done: {
-          type: Boolean,
-          default: false,
-        },
-        project: {
-          type: Number,
-          required: Types.ObjectId,
-          ref: 'Project',
-          required: true,
+        description: {
+          type: String,
         },
       },
       opts,
@@ -55,4 +49,4 @@ class Task extends Model {
   }
 }
 
-export default Task;
+export default Module;

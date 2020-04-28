@@ -1,95 +1,96 @@
 /**
- * @file TaskService.js
+ * @file PracticeService.js
  * @version 1.0.0
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
-
+import pick from 'lodash/pick';
 import Base from '../core/Base';
 
 /**
- * @class TaskService
- * @classdesc Task's handler.
+ * @class PracticeService
+ * @classdesc Practice's handler.
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
-class TaskService extends Base {
+class PracticeService extends Base {
   /**
    * @method create
    * @author Ernesto Rojas <ernesto20145@gmail.com>
-   * @param {object} data - Object with new project data.
-   * @description This method create a new project.
-   * @returns {Promise} Promise with operation. When promise is resolve, return new project created.
+   * @param {object} data - Object with new practice data.
+   * @description This method create a new practice.
+   * @returns {Promise} Promise with operation. When promise is resolve, return new practice created.
    */
   create(data) {
-    const { Task } = this.app.models;
-    return Task.create(data);
+    const { Practice } = this.app.models;
+    return Practice.create(data);
   }
   /**
    * @method get
    * @author Ernesto Rojas <ernesto20145@gmail.com>
    * @param {object} query - Object with params to search.
-   * @description This method get all projects that match with params.
+   * @description This method get all practices that match with params.
    * @returns {Promise} Promise with operation. When promise is resolve, return a object with
-   * collection projects data and pagination data.
+   * collection practices data and pagination data.
    */
   async get(query) {
-    const { Task } = this.app.models;
+    const { Practice } = this.app.models;
     const { UtilService } = this.app.services;
     const { all, fields, limit, skip, sort } = UtilService.buidOpts(query);
     const criteria = await buidCriteria(query);
-    const count = await Task.countDocuments(criteria);
+    const count = await Practice.countDocuments(criteria);
     const pagination = { count, limit: all ? count : limit };
     let collection;
     if (all) {
-      collection = await Task.find(criteria, fields, { sort });
+      collection = await Practice.find(criteria, fields, { sort });
     } else {
-      collection = await Task.find(criteria, fields, { limit, skip, sort });
+      collection = await Practice.find(criteria, fields, { limit, skip, sort });
     }
     return { collection, pagination };
   }
   /**
    * @method getById
    * @author Ernesto Rojas <ernesto20145@gmail.com>
-   * @param {string} id - Task's id.
-   * @description This method find and return a project by id.
-   * @throws {Error} Task id not found error.
+   * @param {string} id - Practice's id.
+   * @description This method find and return a practice by id.
+   * @throws {Error} Practice id not found error.
    * @returns {Promise} Promise with operation.
    */
   async getById(id) {
-    const { Task } = this.app.models;
-    const project = await Task.findById(id);
-    if (!project) {
+    const { Practice } = this.app.models;
+    const practice = await Practice.findById(id);
+    if (!practice) {
       const { Exception } = this.app;
-      throw new Exception(`Task ${id} not found.`, 404);
+      throw new Exception(`Practice ${id} not found.`, 404);
     }
-    return project;
+    return practice;
   }
   /**
    * @method updateById
    * @author Ernesto Rojas <ernesto20145@gmail.com>
-   * @param {string} _id - Task's id.
+   * @param {string} _id - Practice's id.
    * @param {object} data - Object with fields to update.
-   * @description This method update a project by id.
-   * @throws {Error} Task id not found error.
+   * @description This method update a practice by id.
+   * @throws {Error} Practice id not found error.
    * @returns {Promise} Promise with operation.
    */
   async updateById(_id, data) {
-    const { Task } = this.app.models;
+    const { Practice } = this.app.models;
     await this.getById(_id);
-    return Task.updateOne({ _id }, { $set: data });
+    const updatableFields = ['content', 'type'];
+    return Practice.updateOne({ _id }, { $set: pick(data, updatableFields) });
   }
 
   /**
    * @method deleteById
    * @author Ernesto Rojas <ernesto20145@gmail.com>
-   * @param {string} id - Task's id.
-   * @description This method delete a project by id.
-   * @throws {Error} Task id not found error.
+   * @param {string} id - Practice's id.
+   * @description This method delete a practice by id.
+   * @throws {Error} Practice id not found error.
    * @returns {Promise} Promise with operation.
    */
   async deleteById(_id) {
-    const { Task } = this.app.models;
+    const { Practice } = this.app.models;
     await this.getById(_id);
-    return Task.removeOne({ _id });
+    return Practice.deleteOne({ _id });
   }
 }
 
@@ -127,4 +128,4 @@ async function buidCriteria(query = {}) {
   return criteria;
 }
 
-export default TaskService;
+export default PracticeService;

@@ -40,7 +40,11 @@ class Model extends Base {
    * @returns {mongoose.Model} Mongoose model.
    */
   build() {
-    return model(this.getName(), this.getSchema());
+    const schema = this.getSchema();
+    if (this.config && (typeof this.config === 'function')) {
+      this.config(schema);
+    }
+    return model(this.getName(), schema);
   }
 }
 

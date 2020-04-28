@@ -8,26 +8,33 @@ import database from './config/database';
 import web from './config/web';
 import logger from './config/logger';
 
+// Constants
+
+import Constants from './constants';
+
 // Importing models
 
-import Project from './models/Project';
-import Task from './models/Task';
+import Practice from './models/Practice';
+import Phase from './models/Phase';
+import Module from './models/Module';
 
 // Importing routes
 
-import index from './routes/index';
-import projects from './routes/projects';
-import tasks from './routes/tasks';
+import modules from './routes/modules';
+import phases from './routes/phases';
+import practices from './routes/practices';
 
 // Importing controllers
 
-import ProjectController from './controllers/ProjectController';
-import TaskController from './controllers/TaskController';
+import ModuleController from './controllers/ModuleController';
+import PhaseController from './controllers/PhaseController';
+import PracticeController from './controllers/PracticeController';
 
 // Importing services
 
-import TaskService from './services/TaskService';
-import ProjectService from './services/ProjectService';
+import ModuleService from './services/ModuleService';
+import PhaseService from './services/PhaseService';
+import PracticeService from './services/PracticeService';
 import UtilService from './services/UtilService';
 
 // Exception
@@ -58,6 +65,7 @@ class Application {
 
   setting() {
     this.Exception = Exception;
+    this.Constants = Constants;
     this.app.set('port', web(this).port);
   }
 
@@ -75,30 +83,33 @@ class Application {
 
   models() {
     this.models = {
-      Project: new Project(this).build(),
-      Task: new Task(this).build(),
+      Practice: new Practice(this).build(),
+      Phase: new Phase(this).build(),
+      Module: new Module(this).build(),
     };
   }
 
   services() {
     this.services = {
-      TaskService: new TaskService(this),
-      ProjectService: new ProjectService(this),
+      ModuleService: new ModuleService(this),
+      PhaseService: new PhaseService(this),
+      PracticeService: new PracticeService(this),
       UtilService: new UtilService(this),
     };
   }
 
   controllers() {
     this.controllers = {
-      TaskController: new TaskController(this),
-      ProjectController: new ProjectController(this),
+      ModuleController: new ModuleController(this),
+      PhaseController: new PhaseController(this),
+      PracticeController: new PracticeController(this),
     };
   }
 
   routes() {
-    this.app.use('/', index(this));
-    this.app.use('/projects', projects(this));
-    this.app.use('/tasks', tasks(this));
+    this.app.use('/modules', modules(this));
+    this.app.use('/phases', phases(this));
+    this.app.use('/practices', practices(this));
   }
 
   errorHandler() {
