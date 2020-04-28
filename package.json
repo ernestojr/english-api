@@ -1,7 +1,7 @@
 {
   "name": "english-api",
   "description": "Api english practices.",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "private": true,
   "license": "MIT",
   "scripts": {
