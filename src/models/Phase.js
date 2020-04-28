@@ -14,6 +14,12 @@ import Model from '../core/Model';
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
 class Phase extends Model {
+
+  beforeCreate(doc) {
+    const { ModuleService } = this.app.services;
+    const { moduleId } = doc;
+    return ModuleService.getById(moduleId);
+  }
   /**
    * @method getName
    * @author Ernesto Rojas <ernesto20145@gmail.com>
@@ -22,6 +28,13 @@ class Phase extends Model {
    */
   getName() {
     return 'Phase';
+  }
+
+  config(schema) {
+    const thisClass = this;
+    schema.pre('save', async function () {
+      await thisClass.beforeCreate(this);
+    });
   }
 
   /**
@@ -36,7 +49,7 @@ class Phase extends Model {
     };
     return new Schema(
       {
-        module: {
+        moduleId: {
           type: Types.ObjectId,
           ref: 'Module',
         },
