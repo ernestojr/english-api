@@ -102,11 +102,14 @@ class PhaseService extends Base {
  * @returns {object} Object with fields criteria.
  */
 async function buidCriteria(query = {}) {
-  const { search, fromDate, toDate } = query;
+  const { search, moduleId, fromDate, toDate } = query;
   const criteria = {};
   const filterDate = [];
   if (search) {
     Object.assign(criteria, { $text: { $search: search } });
+  }
+  if (moduleId) {
+    Object.assign(criteria, { moduleId });
   }
   if (fromDate) {
     filterDate.push({

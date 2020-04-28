@@ -102,11 +102,14 @@ class PracticeService extends Base {
  * @returns {object} Object with fields criteria.
  */
 async function buidCriteria(query = {}) {
-  const { search, fromDate, toDate } = query;
+  const { search, phaseId, fromDate, toDate } = query;
   const criteria = {};
   const filterDate = [];
   if (search) {
     Object.assign(criteria, { $text: { $search: search } });
+  }
+  if (phaseId) {
+    Object.assign(criteria, { phaseId });
   }
   if (fromDate) {
     filterDate.push({
