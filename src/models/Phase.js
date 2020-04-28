@@ -1,26 +1,40 @@
 /**
- * @file Task.js
+ * @file Phase.js
  * @version 1.0.0
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
 
 import { Schema, Types } from 'mongoose';
+import values from 'lodash/values';
 import Model from '../core/Model';
 
 /**
- * @class Task
- * @classdesc Task class.
+ * @class Phase
+ * @classdesc Phase class.
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
-class Task extends Model {
+class Phase extends Model {
+
+  beforeCreate(doc) {
+    const { ModuleService } = this.app.services;
+    const { moduleId } = doc;
+    return ModuleService.getById(moduleId);
+  }
   /**
-   * @method getById
+   * @method getName
    * @author Ernesto Rojas <ernesto20145@gmail.com>
    * @description This method get model name.
    * @returns {string} Model name.
    */
   getName() {
-    return 'Task';
+    return 'Phase';
+  }
+
+  config(schema) {
+    const thisClass = this;
+    schema.pre('save', async function () {
+      await thisClass.beforeCreate(this);
+    });
   }
 
   /**
@@ -35,19 +49,21 @@ class Task extends Model {
     };
     return new Schema(
       {
+        moduleId: {
+          type: Types.ObjectId,
+          ref: 'Module',
+        },
         name: {
           type: String,
           required: true,
         },
-        done: {
-          type: Boolean,
-          default: false,
+        constructions: {
+          type: [String],
+          default: [],
         },
-        project: {
-          type: Number,
-          required: Types.ObjectId,
-          ref: 'Project',
-          required: true,
+        resources: {
+          type: [String],
+          default: [],
         },
       },
       opts,
@@ -55,4 +71,4 @@ class Task extends Model {
   }
 }
 
-export default Task;
+export default Phase;

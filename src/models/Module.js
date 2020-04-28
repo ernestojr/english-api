@@ -15,7 +15,7 @@ import Model from '../core/Model';
  */
 class Module extends Model {
   /**
-   * @method getById
+   * @method getName
    * @author Ernesto Rojas <ernesto20145@gmail.com>
    * @description This method get model name.
    * @returns {string} Model name.
@@ -34,43 +34,14 @@ class Module extends Model {
     const opts = {
       timestamps: true,
     };
-    const Lines = new Schema({
-      text: {
-        type: String,
-        required: true,
-      },
-      type: {
-        type: String,
-        enum: values(this.app.Constants.Lines.Types),
-      },
-    });
-    const Phase = new Schema({
-      name: {
-        type: String,
-        required: true,
-      },
-      constructions: {
-        type: [String],
-        default: [],
-      },
-      practices: {
-        type: [Lines],
-        default: [],
-      },
-      resources: {
-        type: [String],
-        default: [],
-      },
-    });
     return new Schema(
       {
         name: {
           type: String,
           required: true,
         },
-        phases: {
-          type: [Phase],
-          default: [],
+        description: {
+          type: String,
         },
       },
       opts,

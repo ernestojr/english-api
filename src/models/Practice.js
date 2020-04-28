@@ -1,26 +1,27 @@
 /**
- * @file Project.js
+ * @file Practice.js
  * @version 1.0.0
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
 
-import { Schema } from 'mongoose';
+import { Schema, Types } from 'mongoose';
+import values from 'lodash/values';
 import Model from '../core/Model';
 
 /**
- * @class Project
- * @classdesc Project class.
+ * @class Practice
+ * @classdesc Practice class.
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
-class Project extends Model {
+class Practice extends Model {
   /**
-   * @method getById
+   * @method getName
    * @author Ernesto Rojas <ernesto20145@gmail.com>
    * @description This method get model name.
    * @returns {string} Model name.
    */
   getName() {
-    return 'Project';
+    return 'Practice';
   }
 
   /**
@@ -35,21 +36,17 @@ class Project extends Model {
     };
     return new Schema(
       {
-        name: {
+        module: {
+          type: Types.ObjectId,
+          ref: 'Phase',
+        },
+        content: {
           type: String,
           required: true,
         },
-        priority: {
-          type: Number,
-          required: true,
-        },
-        description: {
+        type: {
           type: String,
-          required: true,
-        },
-        deliveryDate: {
-          type: Date,
-          required: true,
+          enum: values(this.app.Constants.Practice.Types),
         },
       },
       opts,
@@ -57,4 +54,4 @@ class Project extends Model {
   }
 }
 
-export default Project;
+export default Practice;
