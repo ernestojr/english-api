@@ -14,12 +14,19 @@ import Model from '../core/Model';
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
 class Phase extends Model {
-
-  beforeCreate(doc) {
+  /**
+   * @method beforeCreate
+   * @author Ernesto Rojas <ernesto20145@gmail.com>
+   * @description This method run before create the document.
+   * Here is the module id validation.
+   * @returns {void} Nothing.
+   */
+  async beforeCreate(doc) {
     const { ModuleService } = this.app.services;
     const { moduleId } = doc;
-    return ModuleService.getById(moduleId);
+    await ModuleService.getById(moduleId);
   }
+
   /**
    * @method getName
    * @author Ernesto Rojas <ernesto20145@gmail.com>
@@ -30,6 +37,12 @@ class Phase extends Model {
     return 'Phase';
   }
 
+  /**
+   * @method config
+   * @author Ernesto Rojas <ernesto20145@gmail.com>
+   * @description This method set the configuration of model.
+   * @returns {void} Nothing.
+   */
   config(schema) {
     const thisClass = this;
     schema.pre('save', async function () {

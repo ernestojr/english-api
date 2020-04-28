@@ -18,7 +18,7 @@ class ModuleController extends Base {
    * @param {object} req - Express request.
    * @param {object} res - Express response.
    * @param {function} next - Express next function.
-   * @description This method create a new Module.
+   * @description This method create a new module.
    * @returns {Promise} Promise with operation.
    */
   create = async (req, res, next) => {
@@ -38,7 +38,7 @@ class ModuleController extends Base {
    * @param {object} req - Express request.
    * @param {object} res - Express response.
    * @param {function} next - Express next function.
-   * @description This method get projects by query params.
+   * @description This method get the list of modules by query params.
    * @returns {Promise} Promise with operation.
    */
   get = async (req, res, next) => {
@@ -63,7 +63,7 @@ class ModuleController extends Base {
    * @param {object} req - Express request.
    * @param {object} res - Express response.
    * @param {function} next - Express next function.
-   * @description This method get Module by id.
+   * @description This method get a module by id.
    * @returns {Promise} Promise with operation.
    */
   getById = async (req, res, next) => {
@@ -85,7 +85,7 @@ class ModuleController extends Base {
    * @param {object} req - Express request.
    * @param {object} res - Express response.
    * @param {function} next - Express next function.
-   * @description This method update Module by id.
+   * @description This method update a module by id.
    * @returns {Promise} Promise with operation.
    */
   updateById = async (req, res, next) => {
@@ -107,7 +107,7 @@ class ModuleController extends Base {
    * @param {object} req - Express request.
    * @param {object} res - Express response.
    * @param {function} next - Express next function.
-   * @description This method delete Module by id.
+   * @description This method delete a module by id.
    * @returns {Promise} Promise with operation.
    */
   deleteById = async (req, res, next) => {

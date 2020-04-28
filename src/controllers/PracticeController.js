@@ -1,5 +1,5 @@
 /**
- * @file PhaseController.js
+ * @file PracticeController.js
  * @version 1.0.0
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
@@ -7,26 +7,26 @@
 import Base from '../core/Base';
 
 /**
- * @class PhaseController
- * @classdesc Phase's controllers.
+ * @class PracticeController
+ * @classdesc Practice's controllers.
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
-class PhaseController extends Base {
+class PracticeController extends Base {
   /**
    * @method create
    * @author Ernesto Rojas <ernesto20145@gmail.com>
    * @param {object} req - Express request.
    * @param {object} res - Express response.
    * @param {function} next - Express next function.
-   * @description This method create a new phase.
+   * @description This method create a new practice.
    * @returns {Promise} Promise with operation.
    */
   create = async (req, res, next) => {
     const { body } = req;
-    const { PhaseService } = this.app.services;
+    const { PracticeService } = this.app.services;
     try {
-      const Phase = await PhaseService.create(body);
-      res.status(201).json(Phase);
+      const Practice = await PracticeService.create(body);
+      res.status(201).json(Practice);
     } catch (error) {
       next(error);
     }
@@ -38,14 +38,14 @@ class PhaseController extends Base {
    * @param {object} req - Express request.
    * @param {object} res - Express response.
    * @param {function} next - Express next function.
-   * @description This method get the list of phases by query params.
+   * @description This method get the list of practices by query params.
    * @returns {Promise} Promise with operation.
    */
   get = async (req, res, next) => {
     const { query } = req;
-    const { PhaseService } = this.app.services;
+    const { PracticeService } = this.app.services;
     try {
-      const { collection, pagination } = await PhaseService.get(query);
+      const { collection, pagination } = await PracticeService.get(query);
       res.set({
         'X-Pagination-Total-Count': pagination.count,
         'X-Pagination-Limit': pagination.limit,
@@ -63,17 +63,17 @@ class PhaseController extends Base {
    * @param {object} req - Express request.
    * @param {object} res - Express response.
    * @param {function} next - Express next function.
-   * @description This method get a phase by id.
+   * @description This method get a practice by id.
    * @returns {Promise} Promise with operation.
    */
   getById = async (req, res, next) => {
-    const { PhaseService } = this.app.services;
+    const { PracticeService } = this.app.services;
     const {
       params: { id },
     } = req;
     try {
-      const Phase = await PhaseService.getById(id);
-      res.status(200).json(Phase);
+      const Practice = await PracticeService.getById(id);
+      res.status(200).json(Practice);
     } catch (error) {
       next(error);
     }
@@ -85,16 +85,16 @@ class PhaseController extends Base {
    * @param {object} req - Express request.
    * @param {object} res - Express response.
    * @param {function} next - Express next function.
-   * @description This method update a phase by id.
+   * @description This method update a practice by id.
    * @returns {Promise} Promise with operation.
    */
   updateById = async (req, res, next) => {
-    const { PhaseService } = this.app.services;
+    const { PracticeService } = this.app.services;
     const {
       params: { id },
     } = req;
     try {
-      await PhaseService.updateById(id, req.body);
+      await PracticeService.updateById(id, req.body);
       res.status(204).end();
     } catch (error) {
       next(error);
@@ -107,16 +107,16 @@ class PhaseController extends Base {
    * @param {object} req - Express request.
    * @param {object} res - Express response.
    * @param {function} next - Express next function.
-   * @description This method delete a phase by id.
+   * @description This method delete a practice by id.
    * @returns {Promise} Promise with operation.
    */
   deleteById = async (req, res, next) => {
-    const { PhaseService } = this.app.services;
+    const { PracticeService } = this.app.services;
     const {
       params: { id },
     } = req;
     try {
-      await PhaseService.deleteById(id);
+      await PracticeService.deleteById(id);
       res.status(204).end();
     } catch (error) {
       next(error);
@@ -124,4 +124,4 @@ class PhaseController extends Base {
   };
 }
 
-export default PhaseController;
+export default PracticeController;

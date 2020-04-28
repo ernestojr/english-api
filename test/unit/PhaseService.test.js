@@ -16,7 +16,7 @@ describe('PhaseService', function() {
     sandbox.restore();
   });
 
-  it('Should create a new module.', async () => {
+  it('Should create a new phase.', async () => {
     sandbox.stub(app.models.Phase, 'create').resolves(1);
     const instance = new PhaseService(app);
     const result = await instance.create(1);
@@ -25,7 +25,7 @@ describe('PhaseService', function() {
     expect(app.models.Phase.create).to.have.been.calledOnceWith(1);
   });
 
-  it('Should get the first page modules.', async () => {
+  it('Should get the first page phases.', async () => {
     sandbox.stub(app.models.Phase, 'find').resolves([]);
     sandbox.stub(app.models.Phase, 'countDocuments').resolves(0);
     sandbox.spy(app.services.UtilService, 'buidOpts');
@@ -49,7 +49,7 @@ describe('PhaseService', function() {
     expect(app.services.UtilService.buidOpts).to.been.calledOnceWith({});
   });
 
-  it('Should get one module by id success.', async () => {
+  it('Should get one phase by id success.', async () => {
     sandbox.stub(app.models.Phase, 'findById').resolves(1);
     const instance = new PhaseService(app);
     const result = await instance.getById(1);
@@ -58,7 +58,7 @@ describe('PhaseService', function() {
     expect(result).to.be.equals(1);
   });
 
-  it('Should get one module by id failed.', async () => {
+  it('Should get one phase by id failed.', async () => {
     try {
       sandbox.stub(app.models.Phase, 'findById').resolves(undefined);
       const instance = new PhaseService(app);
@@ -70,7 +70,7 @@ describe('PhaseService', function() {
     }
   });
 
-  it('Should update one module by id success.', async () => {
+  it('Should update one phase by id success.', async () => {
     sandbox.stub(app.models.Phase, 'updateOne').resolves(1);
     sandbox.stub(app.models.Phase, 'findById').resolves(1);
     const instance = new PhaseService(app);
@@ -81,7 +81,7 @@ describe('PhaseService', function() {
     expect(app.models.Phase.updateOne).to.have.been.calledOnceWith({ _id: 1 });
   });
 
-  it('Should delete one module by id success.', async () => {
+  it('Should delete one phase by id success.', async () => {
     sandbox.stub(app.models.Phase, 'deleteOne').resolves(1);
     sandbox.stub(app.models.Phase, 'findById').resolves(1);
     const instance = new PhaseService(app);

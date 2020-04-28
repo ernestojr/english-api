@@ -14,6 +14,7 @@ export const app = {
   models: {
     Module: { ...model },
     Phase: { ...model },
+    Practice: { ...model },
   },
   services: {
     UtilService: new UtilService({}),

@@ -22,16 +22,19 @@ import Module from './models/Module';
 
 import modules from './routes/modules';
 import phases from './routes/phases';
+import practices from './routes/practices';
 
 // Importing controllers
 
 import ModuleController from './controllers/ModuleController';
 import PhaseController from './controllers/PhaseController';
+import PracticeController from './controllers/PracticeController';
 
 // Importing services
 
 import ModuleService from './services/ModuleService';
 import PhaseService from './services/PhaseService';
+import PracticeService from './services/PracticeService';
 import UtilService from './services/UtilService';
 
 // Exception
@@ -90,6 +93,7 @@ class Application {
     this.services = {
       ModuleService: new ModuleService(this),
       PhaseService: new PhaseService(this),
+      PracticeService: new PracticeService(this),
       UtilService: new UtilService(this),
     };
   }
@@ -98,12 +102,14 @@ class Application {
     this.controllers = {
       ModuleController: new ModuleController(this),
       PhaseController: new PhaseController(this),
+      PracticeController: new PracticeController(this),
     };
   }
 
   routes() {
     this.app.use('/modules', modules(this));
     this.app.use('/phases', phases(this));
+    this.app.use('/practices', practices(this));
   }
 
   errorHandler() {

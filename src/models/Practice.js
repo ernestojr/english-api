@@ -15,6 +15,19 @@ import Model from '../core/Model';
  */
 class Practice extends Model {
   /**
+   * @method beforeCreate
+   * @author Ernesto Rojas <ernesto20145@gmail.com>
+   * @description This method run before create the document.
+   * Here is the phase id validation.
+   * @returns {void} Nothing.
+   */
+  async beforeCreate(doc) {
+    const { PhaseService } = this.app.services;
+    const { phaseId } = doc;
+    await PhaseService.getById(phaseId);
+  }
+
+  /**
    * @method getName
    * @author Ernesto Rojas <ernesto20145@gmail.com>
    * @description This method get model name.
@@ -22,6 +35,19 @@ class Practice extends Model {
    */
   getName() {
     return 'Practice';
+  }
+
+  /**
+   * @method config
+   * @author Ernesto Rojas <ernesto20145@gmail.com>
+   * @description This method set the configuration of model.
+   * @returns {void} Nothing.
+   */
+  config(schema) {
+    const thisClass = this;
+    schema.pre('save', async function () {
+      await thisClass.beforeCreate(this);
+    });
   }
 
   /**
@@ -36,7 +62,7 @@ class Practice extends Model {
     };
     return new Schema(
       {
-        module: {
+        phaseId: {
           type: Types.ObjectId,
           ref: 'Phase',
         },
