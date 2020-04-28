@@ -14,28 +14,19 @@ import Constants from './constants';
 
 // Importing models
 
-import Project from './models/Project';
-import Task from './models/Task';
 import Module from './models/Module';
 
 // Importing routes
 
-import index from './routes/index';
-import projects from './routes/projects';
-import tasks from './routes/tasks';
 import modules from './routes/modules';
 
 // Importing controllers
 
-import ProjectController from './controllers/ProjectController';
-import TaskController from './controllers/TaskController';
 import ModuleController from './controllers/ModuleController';
 
 // Importing services
 
-import TaskService from './services/TaskService';
 import ModuleService from './services/ModuleService';
-import ProjectService from './services/ProjectService';
 import UtilService from './services/UtilService';
 
 // Exception
@@ -84,17 +75,13 @@ class Application {
 
   models() {
     this.models = {
-      Project: new Project(this).build(),
-      Task: new Task(this).build(),
       Module: new Module(this).build(),
     };
   }
 
   services() {
     this.services = {
-      TaskService: new TaskService(this),
       ModuleService: new ModuleService(this),
-      ProjectService: new ProjectService(this),
       UtilService: new UtilService(this),
     };
   }
@@ -102,15 +89,10 @@ class Application {
   controllers() {
     this.controllers = {
       ModuleController: new ModuleController(this),
-      TaskController: new TaskController(this),
-      ProjectController: new ProjectController(this),
     };
   }
 
   routes() {
-    this.app.use('/', index(this));
-    this.app.use('/projects', projects(this));
-    this.app.use('/tasks', tasks(this));
     this.app.use('/modules', modules(this));
   }
 

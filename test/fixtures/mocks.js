@@ -12,8 +12,6 @@ const model = {
 
 export const app = {
   models: {
-    Project: { ...model },
-    Task: { ...model },
     Module: { ...model },
   },
   services: {
