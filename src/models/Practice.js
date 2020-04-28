@@ -36,13 +36,17 @@ class Practice extends Model {
     };
     return new Schema(
       {
-        text: {
+        module: {
+          type: Types.ObjectId,
+          ref: 'Phase',
+        },
+        content: {
           type: String,
           required: true,
         },
         type: {
           type: String,
-          enum: values(this.app.Constants.Lines.Types),
+          enum: values(this.app.Constants.Practice.Types),
         },
       },
       opts,

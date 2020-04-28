@@ -40,9 +40,8 @@ class Module extends Model {
           type: String,
           required: true,
         },
-        phases: {
-          type: [{ type: Types.ObjectId, ref: 'Phase' }],
-          default: [],
+        description: {
+          type: String,
         },
       },
       opts,

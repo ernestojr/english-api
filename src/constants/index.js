@@ -1,5 +1,5 @@
 export default {
-    Lines: {
+    Practice: {
         Types: {
             QUESTION: 'question',
             REQUEST: 'request',

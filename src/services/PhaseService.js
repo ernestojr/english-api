@@ -1,5 +1,5 @@
 /**
- * @file ModuleService.js
+ * @file PhaseService.js
  * @version 1.0.0
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
@@ -7,90 +7,90 @@ import pick from 'lodash/pick';
 import Base from '../core/Base';
 
 /**
- * @class ModuleService
- * @classdesc Module's handler.
+ * @class PhaseService
+ * @classdesc Phase's handler.
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
-class ModuleService extends Base {
+class PhaseService extends Base {
   /**
    * @method create
    * @author Ernesto Rojas <ernesto20145@gmail.com>
-   * @param {object} data - Object with new module data.
-   * @description This method create a new module.
-   * @returns {Promise} Promise with operation. When promise is resolve, return new module created.
+   * @param {object} data - Object with new phase data.
+   * @description This method create a new phase.
+   * @returns {Promise} Promise with operation. When promise is resolve, return new phase created.
    */
   create(data) {
-    const { Module } = this.app.models;
-    return Module.create(data);
+    const { Phase } = this.app.models;
+    return Phase.create(data);
   }
   /**
    * @method get
    * @author Ernesto Rojas <ernesto20145@gmail.com>
    * @param {object} query - Object with params to search.
-   * @description This method get all modules that match with params.
+   * @description This method get all phases that match with params.
    * @returns {Promise} Promise with operation. When promise is resolve, return a object with
-   * collection modules data and pagination data.
+   * collection phases data and pagination data.
    */
   async get(query) {
-    const { Module } = this.app.models;
+    const { Phase } = this.app.models;
     const { UtilService } = this.app.services;
     const { all, fields, limit, skip, sort } = UtilService.buidOpts(query);
     const criteria = await buidCriteria(query);
-    const count = await Module.countDocuments(criteria);
+    const count = await Phase.countDocuments(criteria);
     const pagination = { count, limit: all ? count : limit };
     let collection;
     if (all) {
-      collection = await Module.find(criteria, fields, { sort });
+      collection = await Phase.find(criteria, fields, { sort });
     } else {
-      collection = await Module.find(criteria, fields, { limit, skip, sort });
+      collection = await Phase.find(criteria, fields, { limit, skip, sort });
     }
     return { collection, pagination };
   }
   /**
    * @method getById
    * @author Ernesto Rojas <ernesto20145@gmail.com>
-   * @param {string} id - Module's id.
-   * @description This method find and return a module by id.
-   * @throws {Error} Module id not found error.
+   * @param {string} id - Phase's id.
+   * @description This method find and return a phase by id.
+   * @throws {Error} Phase id not found error.
    * @returns {Promise} Promise with operation.
    */
   async getById(id) {
-    const { Module } = this.app.models;
-    const module = await Module.findById(id);
-    if (!module) {
+    const { Phase } = this.app.models;
+    const phase = await Phase.findById(id);
+    if (!phase) {
       const { Exception } = this.app;
-      throw new Exception(`Module ${id} not found.`, 404);
+      throw new Exception(`Phase ${id} not found.`, 404);
     }
-    return module;
+    return phase;
   }
   /**
    * @method updateById
    * @author Ernesto Rojas <ernesto20145@gmail.com>
-   * @param {string} _id - Module's id.
+   * @param {string} _id - Phase's id.
    * @param {object} data - Object with fields to update.
-   * @description This method update a module by id.
-   * @throws {Error} Module id not found error.
+   * @description This method update a phase by id.
+   * @throws {Error} Phase id not found error.
    * @returns {Promise} Promise with operation.
    */
   async updateById(_id, data) {
-    const { Module } = this.app.models;
+    const { Phase } = this.app.models;
     await this.getById(_id);
-    const updatableFields = ['name'];
-    return Module.updateOne({ _id }, { $set: pick(data, updatableFields) });
+    const updatableFields = ['name', 'constructions', 'resources'];
+    return Phase.updateOne({ _id }, { $set: pick(data, updatableFields) });
   }
 
   /**
    * @method deleteById
    * @author Ernesto Rojas <ernesto20145@gmail.com>
-   * @param {string} id - Module's id.
-   * @description This method delete a module by id.
-   * @throws {Error} Module id not found error.
+   * @param {string} id - Phase's id.
+   * @description This method delete a phase by id.
+   * @throws {Error} Phase id not found error.
    * @returns {Promise} Promise with operation.
    */
   async deleteById(_id) {
-    const { Module } = this.app.models;
+    const { Phase } = this.app.models;
     await this.getById(_id);
-    return Module.deleteOne({ _id });
+    return Phase.deleteOne({ _id });
   }
 }
 
@@ -128,4 +128,4 @@ async function buidCriteria(query = {}) {
   return criteria;
 }
 
-export default ModuleService;
+export default PhaseService;

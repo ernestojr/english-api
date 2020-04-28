@@ -36,16 +36,16 @@ class Phase extends Model {
     };
     return new Schema(
       {
+        module: {
+          type: Types.ObjectId,
+          ref: 'Module',
+        },
         name: {
           type: String,
           required: true,
         },
         constructions: {
           type: [String],
-          default: [],
-        },
-        practices: {
-          type: [{ type: Types.ObjectId, ref: 'Practice' }],
           default: [],
         },
         resources: {

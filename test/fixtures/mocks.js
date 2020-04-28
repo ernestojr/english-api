@@ -13,6 +13,7 @@ const model = {
 export const app = {
   models: {
     Module: { ...model },
+    Phase: { ...model },
   },
   services: {
     UtilService: new UtilService({}),
