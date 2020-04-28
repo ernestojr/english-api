@@ -1,5 +1,5 @@
 /**
- * @file Module.js
+ * @file Practice.js
  * @version 1.0.0
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
@@ -9,11 +9,11 @@ import values from 'lodash/values';
 import Model from '../core/Model';
 
 /**
- * @class Module
- * @classdesc Module class.
+ * @class Practice
+ * @classdesc Practice class.
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
-class Module extends Model {
+class Practice extends Model {
   /**
    * @method getName
    * @author Ernesto Rojas <ernesto20145@gmail.com>
@@ -21,7 +21,7 @@ class Module extends Model {
    * @returns {string} Model name.
    */
   getName() {
-    return 'Module';
+    return 'Practice';
   }
 
   /**
@@ -36,13 +36,13 @@ class Module extends Model {
     };
     return new Schema(
       {
-        name: {
+        text: {
           type: String,
           required: true,
         },
-        phases: {
-          type: [{ type: Types.ObjectId, ref: 'Phase' }],
-          default: [],
+        type: {
+          type: String,
+          enum: values(this.app.Constants.Lines.Types),
         },
       },
       opts,
@@ -50,4 +50,4 @@ class Module extends Model {
   }
 }
 
-export default Module;
+export default Practice;

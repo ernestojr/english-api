@@ -1,5 +1,5 @@
 /**
- * @file Module.js
+ * @file Phase.js
  * @version 1.0.0
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
@@ -9,11 +9,11 @@ import values from 'lodash/values';
 import Model from '../core/Model';
 
 /**
- * @class Module
- * @classdesc Module class.
+ * @class Phase
+ * @classdesc Phase class.
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
-class Module extends Model {
+class Phase extends Model {
   /**
    * @method getName
    * @author Ernesto Rojas <ernesto20145@gmail.com>
@@ -21,7 +21,7 @@ class Module extends Model {
    * @returns {string} Model name.
    */
   getName() {
-    return 'Module';
+    return 'Phase';
   }
 
   /**
@@ -40,8 +40,16 @@ class Module extends Model {
           type: String,
           required: true,
         },
-        phases: {
-          type: [{ type: Types.ObjectId, ref: 'Phase' }],
+        constructions: {
+          type: [String],
+          default: [],
+        },
+        practices: {
+          type: [{ type: Types.ObjectId, ref: 'Practice' }],
+          default: [],
+        },
+        resources: {
+          type: [String],
           default: [],
         },
       },
@@ -50,4 +58,4 @@ class Module extends Model {
   }
 }
 
-export default Module;
+export default Phase;

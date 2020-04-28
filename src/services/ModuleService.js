@@ -3,7 +3,7 @@
  * @version 1.0.0
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
-
+import pick from 'lodash/pick';
 import Base from '../core/Base';
 
 /**
@@ -75,7 +75,7 @@ class ModuleService extends Base {
   async updateById(_id, data) {
     const { Module } = this.app.models;
     await this.getById(_id);
-    return Module.updateOne({ _id }, { $set: data });
+    return Module.updateOne({ _id }, { $set: pick(data, ['name']) });
   }
 
   /**
