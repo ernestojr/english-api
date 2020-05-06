@@ -2,7 +2,7 @@ export default {
     Practice: {
         Types: {
             QUESTION: 'question',
-            REQUEST: 'request',
+            ANSWER: 'answer',
         },
     },
 };
