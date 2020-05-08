@@ -4,6 +4,10 @@
   "version": "0.0.1",
   "private": true,
   "license": "MIT",
+  "engines": {
+    "npm": "6.13.4",
+    "node": "12.15.0"
+  },
   "scripts": {
     "dev": "nodemon src/server.js --exec babel-node",
     "prettier": "prettier --config ./.prettierrc --write src/**/*.js",
