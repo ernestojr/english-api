@@ -75,7 +75,7 @@ class PhaseService extends Base {
   async updateById(_id, data) {
     const { Phase } = this.app.models;
     await this.getById(_id);
-    const updatableFields = ['name', 'constructions', 'resources'];
+    const updatableFields = ['name', 'description', 'constructions', 'resources'];
     return Phase.updateOne({ _id }, { $set: pick(data, updatableFields) });
   }
 

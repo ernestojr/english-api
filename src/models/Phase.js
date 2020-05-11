@@ -70,6 +70,9 @@ class Phase extends Model {
           type: String,
           required: true,
         },
+        description: {
+          type: String,
+        },
         constructions: {
           type: [String],
           default: [],
