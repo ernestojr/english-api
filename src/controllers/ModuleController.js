@@ -49,6 +49,7 @@ class ModuleController extends Base {
       res.set({
         'X-Pagination-Total-Count': pagination.count,
         'X-Pagination-Limit': pagination.limit,
+        'X-Pagination-Page': pagination.page,
       });
       res.status(200);
       res.json(collection);

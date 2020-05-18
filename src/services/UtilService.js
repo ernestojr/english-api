@@ -56,6 +56,7 @@ class UtilService extends Base {
       limit: parseInt(limit, 10),
       skip,
       sort: { createdAt: -1 },
+      page,
     };
   }
 }

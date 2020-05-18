@@ -73,7 +73,7 @@ class Application {
     this.app.use(
       cors({
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTION'],
-        exposedHeaders: ['X-Pagination-Total-Count', 'X-Pagination-Limit'],
+        exposedHeaders: ['X-Pagination-Total-Count', 'X-Pagination-Limit', 'X-Pagination-Page'],
       }),
     );
     this.app.use(morgan('dev'));

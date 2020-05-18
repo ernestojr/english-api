@@ -34,10 +34,10 @@ class PracticeService extends Base {
   async get(query) {
     const { Practice } = this.app.models;
     const { UtilService } = this.app.services;
-    const { all, fields, limit, skip, sort } = UtilService.buidOpts(query);
+    const { all, fields, limit, skip, sort, page } = UtilService.buidOpts(query);
     const criteria = await buidCriteria(query);
     const count = await Practice.countDocuments(criteria);
-    const pagination = { count, limit: all ? count : limit };
+    const pagination = { count, limit: all ? count : limit, page };
     let collection;
     if (all) {
       collection = await Practice.find(criteria, fields, { sort });
