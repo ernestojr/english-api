@@ -75,7 +75,7 @@ class ModuleService extends Base {
   async updateById(_id, data) {
     const { Module } = this.app.models;
     await this.getById(_id);
-    const updatableFields = ['name'];
+    const updatableFields = ['name', 'description'];
     return Module.updateOne({ _id }, { $set: pick(data, updatableFields) });
   }
 
