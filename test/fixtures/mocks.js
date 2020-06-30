@@ -15,6 +15,7 @@ export const app = {
     Module: { ...model },
     Phase: { ...model },
     Practice: { ...model },
+    Word: { ...model },
   },
   services: {
     UtilService: new UtilService({}),

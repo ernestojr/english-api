@@ -17,24 +17,28 @@ import Constants from './constants';
 import Practice from './models/Practice';
 import Phase from './models/Phase';
 import Module from './models/Module';
+import Word from './models/Word';
 
 // Importing routes
 
 import modules from './routes/modules';
 import phases from './routes/phases';
 import practices from './routes/practices';
+import words from './routes/words';
 
 // Importing controllers
 
 import ModuleController from './controllers/ModuleController';
 import PhaseController from './controllers/PhaseController';
 import PracticeController from './controllers/PracticeController';
+import WordController from './controllers/WordController';
 
 // Importing services
 
 import ModuleService from './services/ModuleService';
 import PhaseService from './services/PhaseService';
 import PracticeService from './services/PracticeService';
+import WordService from './services/WordService';
 import UtilService from './services/UtilService';
 
 // Exception
@@ -86,6 +90,7 @@ class Application {
       Practice: new Practice(this).build(),
       Phase: new Phase(this).build(),
       Module: new Module(this).build(),
+      Word: new Word(this).build(),
     };
   }
 
@@ -94,6 +99,7 @@ class Application {
       ModuleService: new ModuleService(this),
       PhaseService: new PhaseService(this),
       PracticeService: new PracticeService(this),
+      WordService: new WordService(this),
       UtilService: new UtilService(this),
     };
   }
@@ -103,6 +109,7 @@ class Application {
       ModuleController: new ModuleController(this),
       PhaseController: new PhaseController(this),
       PracticeController: new PracticeController(this),
+      WordController: new WordController(this),
     };
   }
 
@@ -110,6 +117,7 @@ class Application {
     this.app.use('/modules', modules(this));
     this.app.use('/phases', phases(this));
     this.app.use('/practices', practices(this));
+    this.app.use('/words', words(this));
   }
 
   errorHandler() {
