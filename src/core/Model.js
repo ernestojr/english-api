@@ -17,7 +17,7 @@ class Model extends Base {
    * @method getById
    * @author Ernesto Rojas <ernesto20145@gmail.com>
    * @description This method get mongoose schema.
-   * @returns {Schema} Mongoose schema.
+   * @returns {mongoose.Schema} Mongoose schema.
    */
   getSchema() {
     throw new Error('This method is not implement.');

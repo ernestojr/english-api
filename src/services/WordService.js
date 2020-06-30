@@ -75,7 +75,7 @@ class WordService extends Base {
   async updateById(_id, data) {
     const { Word } = this.app.models;
     await this.getById(_id);
-    const updatableFields = ['content', 'type'];
+    const updatableFields = ['value', 'metadata'];
     return Word.updateOne({ _id }, { $set: pick(data, updatableFields) });
   }
 

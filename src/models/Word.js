@@ -22,6 +22,17 @@ class Word extends Model {
   getName() {
     return 'Word';
   }
+  
+  /**
+   * @method config
+   * @author Ernesto Rojas <ernesto20145@gmail.com>
+   * @param {mongoose.Schema} schema - Mongoose schema.
+   * @description This method set the configuration of model.
+   * @returns {void} Nothing.
+   */
+  config(schema) {
+    schema.index({ '$**': 'text' });
+  }
 
   /**
    * @method build
@@ -35,6 +46,10 @@ class Word extends Model {
     };
     const Metadata = new Schema(
       {
+        spanish: {
+          type: String,
+          required: true,
+        },
         present: {
           type: String,
           required: true,

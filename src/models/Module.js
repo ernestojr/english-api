@@ -25,6 +25,17 @@ class Module extends Model {
   }
 
   /**
+   * @method config
+   * @author Ernesto Rojas <ernesto20145@gmail.com>
+   * @param {mongoose.Schema} schema - Mongoose schema.
+   * @description This method set the configuration of model.
+   * @returns {void} Nothing.
+   */
+  config(schema) {
+    schema.index({ '$**': 'text' });
+  }
+
+  /**
    * @method build
    * @author Ernesto Rojas <ernesto20145@gmail.com>
    * @description This method build the model.

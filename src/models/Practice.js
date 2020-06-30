@@ -40,6 +40,7 @@ class Practice extends Model {
   /**
    * @method config
    * @author Ernesto Rojas <ernesto20145@gmail.com>
+   * @param {mongoose.Schema} schema - Mongoose schema.
    * @description This method set the configuration of model.
    * @returns {void} Nothing.
    */
@@ -48,6 +49,7 @@ class Practice extends Model {
     schema.pre('save', async function () {
       await thisClass.beforeCreate(this);
     });
+    schema.index({ '$**': 'text' });
   }
 
   /**
