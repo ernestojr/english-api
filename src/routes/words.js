@@ -6,6 +6,7 @@ export default (app) => {
   return router
     .post('/', WordController.create)
     .get('/', WordController.get)
+    .get('/practice', WordController.practice)
     .get('/:id', WordController.getById)
     .put('/:id', WordController.updateById)
     .delete('/:id', WordController.deleteById);

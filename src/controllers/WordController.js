@@ -123,6 +123,26 @@ class WordController extends Base {
       next(error);
     }
   };
+
+  /**
+   * @method practice
+   * @author Ernesto Rojas <ernesto20145@gmail.com>
+   * @param {object} req - Express request.
+   * @param {object} res - Express response.
+   * @param {function} next - Express next function.
+   * @description This method get a word random to practice.
+   * @returns {Promise} Promise with operation.
+   */
+  practice = async (req, res, next) => {
+    const { WordService } = this.app.services;
+    try {
+      const response = await WordService.practice(req.query.count);
+      res.status(200).json(response);
+    } catch (error) {
+      console.log('error', error);
+      next(error);
+    }
+  };
 }
 
 export default WordController;

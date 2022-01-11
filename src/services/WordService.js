@@ -92,6 +92,20 @@ class WordService extends Base {
     await this.getById(_id);
     return Word.deleteOne({ _id });
   }
+  /**
+   * @method practice
+   * @author Ernesto Rojas <ernesto20145@gmail.com>
+   * @param {number} count - Count words to practice.
+   * @description This method get a word random to practice.
+   * @returns {Promise} Promise with operation.
+   */
+  practice(count = 1) {
+    console.log('Here');
+    const { Word } = this.app.models;
+    return Word.aggregate(
+      [ { $sample: { size: parseInt(count, 10) } } ]
+    ).exec();
+  }
 }
 
 /**

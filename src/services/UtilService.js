@@ -59,6 +59,22 @@ class UtilService extends Base {
       page,
     };
   }
+
+  /**
+   * @function between
+   * @author Ernesto Rojas <ernesto20145@gmail.com>
+   * @param {integer} min - Num min to random value.
+   * @param {integer} max - Num max to random value.
+   * @param {boolean} inclusiveMax - Flag to include max value.
+   * @description This method get a random value.
+   * @returns {object} Random value result.
+   */
+  between(min, max, inclusiveMax) {
+    const aux = inclusiveMax ? 1 : 0;
+    return Math.floor(
+      Math.random() * (max - min + aux) + min
+    )
+  }
 }
 
 export default UtilService;
