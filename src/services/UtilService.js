@@ -9,6 +9,9 @@ import replace from 'lodash/replace';
 import split from 'lodash/split';
 import filter from 'lodash/filter';
 import includes from 'lodash/includes';
+import pick from 'lodash/pick';
+import JWT from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 import Base from '../core/Base';
 
@@ -75,6 +78,64 @@ class UtilService extends Base {
       Math.random() * (max - min + aux) + min
     )
   }
+
+  /**
+   * @function tokenGenerator
+   * @author Ernesto Rojas <ernesto20145@gmail.com>
+   * @param {User} user - User object.
+   * @param {string | number} expiresIn - Expriration time of token.
+   * @description This method generate a JWT.
+   * @returns {object} Random value result.
+   */
+  tokenGenerator = (user, expiresIn = this.app.env.JWT_EXPIRATION_TIME) => {
+    return JWT.sign(pick(user, [
+      '_id',
+      'fullname',
+      'email'
+    ]), this.app.env.JWT_SECRET,
+    { expiresIn, algorithm: 'HS256' });
+  };
+
+  /**
+   * @function isValidToken
+   * @author Ernesto Rojas <ernesto20145@gmail.com>
+   * @param {string} token - JWT token.
+   * @description This method valid token.
+   * @returns {Promise} Return promise with the status of token param.
+   */
+  isValidToken = (token) => new Promise((resolve) => {
+    JWT.verify(token, this.app.env.JWT_SECRET, (error) => resolve(!error))
+  });
+
+  /**
+   * @function decodeToken
+   * @author Ernesto Rojas <ernesto20145@gmail.com>
+   * @param {string} token - JWT token.
+   * @description This method get payload in token.
+   * @returns {object} Payload object in token.
+   */
+  decodeToken = (token) => JWT.decode(token);
+
+  /**
+   * @function createHashPassword
+   * @author Ernesto Rojas <ernesto20145@gmail.com>
+   * @param {string} password - Password of request.
+   * @description This method hash the password param.
+   * @returns {string} Password hashed.
+   */
+  createHashPassword = async (password) => bcrypt
+    .hash(password, await bcrypt.genSalt(10));
+  
+  /**
+   * @function isValidatePassword
+   * @author Ernesto Rojas <ernesto20145@gmail.com>
+   * @param {string} password - Password of request.
+   * @param {User} user - User object.
+   * @description This method validate the password param.
+   * @returns {boolean} The result of verification of password.
+   */
+  isValidatePassword = (password, user) => bcrypt
+    .compareSync(password, user.password);
 }
 
 export default UtilService;

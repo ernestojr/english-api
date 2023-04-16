@@ -1,4 +1,4 @@
-import express, { json } from 'express';
+import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import methodOverride from 'method-override';
@@ -18,6 +18,7 @@ import Practice from './models/Practice';
 import Phase from './models/Phase';
 import Module from './models/Module';
 import Word from './models/Word';
+import User from './models/User';
 
 // Importing routes
 
@@ -25,6 +26,8 @@ import modules from './routes/modules';
 import phases from './routes/phases';
 import practices from './routes/practices';
 import words from './routes/words';
+import users from './routes/users';
+import auth from './routes/auth';
 
 // Importing controllers
 
@@ -32,6 +35,8 @@ import ModuleController from './controllers/ModuleController';
 import PhaseController from './controllers/PhaseController';
 import PracticeController from './controllers/PracticeController';
 import WordController from './controllers/WordController';
+import UserController from './controllers/UserController';
+import AuthController from './controllers/AuthController';
 
 // Importing services
 
@@ -39,7 +44,9 @@ import ModuleService from './services/ModuleService';
 import PhaseService from './services/PhaseService';
 import PracticeService from './services/PracticeService';
 import WordService from './services/WordService';
+import UserService from './services/UserService';
 import UtilService from './services/UtilService';
+import AuthService from './services/AuthService';
 
 // Exception
 
@@ -82,7 +89,7 @@ class Application {
     );
     this.app.use(morgan('dev'));
     this.app.use(methodOverride());
-    this.app.use(json());
+    this.app.use(express.json());
   }
 
   models() {
@@ -91,6 +98,7 @@ class Application {
       Phase: new Phase(this).build(),
       Module: new Module(this).build(),
       Word: new Word(this).build(),
+      User: new User(this).build(),
     };
   }
 
@@ -100,7 +108,9 @@ class Application {
       PhaseService: new PhaseService(this),
       PracticeService: new PracticeService(this),
       WordService: new WordService(this),
+      UserService: new UserService(this),
       UtilService: new UtilService(this),
+      AuthService: new AuthService(this),
     };
   }
 
@@ -110,6 +120,8 @@ class Application {
       PhaseController: new PhaseController(this),
       PracticeController: new PracticeController(this),
       WordController: new WordController(this),
+      UserController: new UserController(this),
+      AuthController: new AuthController(this),
     };
   }
 
@@ -118,6 +130,8 @@ class Application {
     this.app.use('/phases', phases(this));
     this.app.use('/practices', practices(this));
     this.app.use('/words', words(this));
+    this.app.use('/users', users(this));
+    this.app.use('/auth', auth(this));
   }
 
   errorHandler() {

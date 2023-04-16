@@ -1,5 +1,5 @@
 /**
- * @file WordService.js
+ * @file UserService.js
  * @version 1.0.0
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
@@ -7,104 +7,90 @@ import pick from 'lodash/pick';
 import Base from '../core/Base';
 
 /**
- * @class WordService
- * @classdesc Word's handler.
+ * @class UserService
+ * @classdesc User's handler.
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
-class WordService extends Base {
+class UserService extends Base {
   /**
    * @method create
    * @author Ernesto Rojas <ernesto20145@gmail.com>
-   * @param {object} data - Object with new word data.
-   * @description This method create a new word.
-   * @returns {Promise} Promise with operation. When promise is resolve, return new word created.
+   * @param {object} data - Object with new user data.
+   * @description This method create a new user.
+   * @returns {Promise} Promise with operation. When promise is resolve, return new user created.
    */
   create(data) {
-    const { Word } = this.app.models;
-    return Word.create(data);
+    const { User } = this.app.models;
+    return User.create(data);
   }
   /**
    * @method get
    * @author Ernesto Rojas <ernesto20145@gmail.com>
    * @param {object} query - Object with params to search.
-   * @description This method get all words that match with params.
+   * @description This method get all users that match with params.
    * @returns {Promise} Promise with operation. When promise is resolve, return a object with
-   * collection words data and pagination data.
+   * collection users data and pagination data.
    */
   async get(query) {
-    const { Word } = this.app.models;
+    const { User } = this.app.models;
     const { UtilService } = this.app.services;
     const { all, fields, limit, skip, sort, page } = UtilService.buidOpts(query);
     const criteria = await buildCriteria(query);
-    const count = await Word.countDocuments(criteria);
+    const count = await User.countDocuments(criteria);
     const pagination = { count, limit: all ? count : limit, page };
     let collection;
     if (all) {
-      collection = await Word.find(criteria, fields, { sort });
+      collection = await User.find(criteria, fields, { sort });
     } else {
-      collection = await Word.find(criteria, fields, { limit, skip, sort });
+      collection = await User.find(criteria, fields, { limit, skip, sort });
     }
     return { collection, pagination };
   }
   /**
    * @method getById
    * @author Ernesto Rojas <ernesto20145@gmail.com>
-   * @param {string} id - Word's id.
-   * @description This method find and return a word by id.
-   * @throws {Error} Word id not found error.
+   * @param {string} id - User's id.
+   * @description This method find and return a user by id.
+   * @throws {Error} User id not found error.
    * @returns {Promise} Promise with operation.
    */
   async getById(id) {
-    const { Word } = this.app.models;
-    const word = await Word.findById(id);
-    if (!word) {
+    const { User } = this.app.models;
+    const user = await User.findById(id);
+    if (!user) {
       const { Exception } = this.app;
-      throw new Exception(`Word ${id} not found.`, 404);
+      throw new Exception(`User ${id} not found.`, 404);
     }
-    return word;
+    return user;
   }
   /**
    * @method updateById
    * @author Ernesto Rojas <ernesto20145@gmail.com>
-   * @param {string} _id - Word's id.
+   * @param {string} _id - User's id.
    * @param {object} data - Object with fields to update.
-   * @description This method update a word by id.
-   * @throws {Error} Word id not found error.
+   * @description This method update a user by id.
+   * @throws {Error} User id not found error.
    * @returns {Promise} Promise with operation.
    */
   async updateById(_id, data) {
-    const { Word } = this.app.models;
+    const { User } = this.app.models;
     await this.getById(_id);
     const updatableFields = ['value', 'metadata'];
-    return Word.updateOne({ _id }, { $set: pick(data, updatableFields) });
+    return User.updateOne({ _id }, { $set: pick(data, updatableFields) });
   }
 
   /**
    * @method deleteById
    * @author Ernesto Rojas <ernesto20145@gmail.com>
-   * @param {string} id - Word's id.
-   * @description This method delete a word by id.
-   * @throws {Error} Word id not found error.
+   * @param {string} id - User's id.
+   * @description This method delete a user by id.
+   * @throws {Error} User id not found error.
    * @returns {Promise} Promise with operation.
    */
   async deleteById(_id) {
-    const { Word } = this.app.models;
+    const { User } = this.app.models;
     await this.getById(_id);
-    return Word.deleteOne({ _id });
-  }
-  /**
-   * @method practice
-   * @author Ernesto Rojas <ernesto20145@gmail.com>
-   * @param {number} count - Count words to practice.
-   * @description This method get a word random to practice.
-   * @returns {Promise} Promise with operation.
-   */
-  practice(count = 1) {
-    console.log('Here');
-    const { Word } = this.app.models;
-    return Word.aggregate(
-      [ { $sample: { size: parseInt(count, 10) } } ]
-    ).exec();
+    return User.deleteOne({ _id });
   }
 }
 
@@ -145,4 +131,4 @@ async function buildCriteria(query = {}) {
   return criteria;
 }
 
-export default WordService;
+export default UserService;

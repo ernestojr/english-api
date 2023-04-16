@@ -35,7 +35,7 @@ class ModuleService extends Base {
     const { Module } = this.app.models;
     const { UtilService } = this.app.services;
     const { all, fields, limit, skip, sort, page } = UtilService.buidOpts(query);
-    const criteria = await buidCriteria(query);
+    const criteria = await buildCriteria(query);
     const count = await Module.countDocuments(criteria);
     const pagination = { count, limit: all ? count : limit, page };
     let collection;
@@ -95,13 +95,13 @@ class ModuleService extends Base {
 }
 
 /**
- * @function buidCriteria
+ * @function buildCriteria
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  * @param {object} query - Object with criteria fields to search.
  * @description This method build criteria to search.
  * @returns {object} Object with fields criteria.
  */
-async function buidCriteria(query = {}) {
+async function buildCriteria(query = {}) {
   const { search, fromDate, toDate } = query;
   const criteria = {};
   const filterDate = [];
