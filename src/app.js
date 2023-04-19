@@ -52,6 +52,10 @@ import AuthService from './services/AuthService';
 
 import Exception from './core/Exception';
 
+// Middlewares
+
+import ValidationMiddleware from './middlewares/ValidationMiddleware';
+
 class Application {
   constructor() {
     this.app = express();
@@ -62,6 +66,7 @@ class Application {
     this.models();
     this.services();
     this.controllers();
+    this.routersMiddleware();
     this.routes();
     this.errorHandler();
   }
@@ -122,6 +127,12 @@ class Application {
       WordController: new WordController(this),
       UserController: new UserController(this),
       AuthController: new AuthController(this),
+    };
+  }
+
+  routersMiddleware() {
+    this.middlewares = {
+      ValidationMiddleware: new ValidationMiddleware(this),
     };
   }
 
