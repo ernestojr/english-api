@@ -26,7 +26,20 @@ class AuthController extends Base {
     try {
       const { AuthService } = this.app.services;
       const data = await AuthService.signIn(req.body);
-      res.status(200).json(data);
+      if (this.app.env.ACCESS_TOKEN_IN_COOKIE) {
+        const { access_token: accessToken } = data;
+        res
+          .cookie('access_token', accessToken, {
+            maxAge: this.app.env.COOKIE_EXPIRATION_TIME,
+            httpOnly: true,
+          })
+          .status(200)
+          .json({ success: true });
+      } else {
+        res
+          .status(200)
+          .json(data);
+      }
     } catch (error) {
       next(error);
     }

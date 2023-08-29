@@ -9,7 +9,6 @@ import replace from 'lodash/replace';
 import split from 'lodash/split';
 import filter from 'lodash/filter';
 import includes from 'lodash/includes';
-import pick from 'lodash/pick';
 import JWT from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
@@ -82,17 +81,13 @@ class UtilService extends Base {
   /**
    * @function tokenGenerator
    * @author Ernesto Rojas <ernesto20145@gmail.com>
-   * @param {User} user - User object.
+   * @param {User} userDto - User DTO object.
    * @param {string | number} expiresIn - Expriration time of token.
    * @description This method generate a JWT.
    * @returns {object} Random value result.
    */
-  tokenGenerator = (user, expiresIn = this.app.env.JWT_EXPIRATION_TIME) => {
-    return JWT.sign(pick(user, [
-      '_id',
-      'fullname',
-      'email'
-    ]), this.app.env.JWT_SECRET,
+  tokenGenerator = (userDto, expiresIn = this.app.env.JWT_EXPIRATION_TIME) => {
+    return JWT.sign(Object.assign({}, userDto), this.app.env.JWT_SECRET,
     { expiresIn, algorithm: 'HS256' });
   };
 

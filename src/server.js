@@ -1,4 +1,4 @@
-import '@babel/polyfill';
+import 'core-js/stable';
 
 import Application from './app';
 

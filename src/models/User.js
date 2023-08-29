@@ -44,10 +44,15 @@ class User extends Model {
     const opts = {
       timestamps: true,
     };
-    const Verifications = new Schema({
-      email: {
-        type: Boolean,
+    const Verification = new Schema({
+      type: {
+        type: String,
         default: false,
+      },
+      state: {
+        type: String,
+        default: 'pending',
+        enum: ['pending', 'verified'],
       },
     }, { _id: false });
     return new Schema(
@@ -68,7 +73,11 @@ class User extends Model {
           type: String,
         },
         verifications: {
-          type: Verifications
+          type: [Verification],
+          default: [{
+            type: 'email',
+            state: 'pending',
+          }],
         }
       },
       opts,

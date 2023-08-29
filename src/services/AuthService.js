@@ -4,8 +4,6 @@
  * @author Ernesto Rojas <ernesto20145@gmail.com>
  */
 
-import pick from 'lodash/pick';
-
 import Base from '../core/Base';
 
 /**
@@ -26,17 +24,18 @@ class AuthService extends Base {
     const {
       Exception,
       models: { User },
+      dto: { UserDto },
       services: { UtilService },
     } = this.app;
     const user = await User.findOne({ email });
     if (!user) {
-      throw Exception('Email or password is invalid.', 401)
+      throw Exception('Email or password is invalid.', 401);
     }
     if (!UtilService.isValidatePassword(password, user)) {
-      throw Exception('Email or password is invalid.', 401)
+      throw Exception('Email or password is invalid.', 401);
     }
     return {
-      access_token: UtilService.tokenGenerator(user),
+      access_token: UtilService.tokenGenerator(new UserDto(user)),
     };
   };
 
@@ -51,6 +50,7 @@ class AuthService extends Base {
     const {
       models: { User },
       services: { UtilService },
+      dto: { UserDto },
     } = this.app;
     const password = await UtilService
       .createHashPassword(data.password);
@@ -58,12 +58,7 @@ class AuthService extends Base {
       ...data,
       password,
     });
-    return pick(user, [
-      '_id',
-      'fullname',
-      'email',
-      'avatar',
-    ]);
+    return new UserDto(user);
   };
 
   /**

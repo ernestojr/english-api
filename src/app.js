@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import methodOverride from 'method-override';
+import cookieParser from 'cookie-parser';
 
 import env from './config/env';
 import database from './config/database';
@@ -56,6 +57,10 @@ import Exception from './core/Exception';
 
 import ValidationMiddleware from './middlewares/ValidationMiddleware';
 
+// DTO
+
+import UserDto from './dto/User.dto';
+
 class Application {
   constructor() {
     this.app = express();
@@ -63,7 +68,7 @@ class Application {
     this.logger();
     this.middlewares();
     this.setting();
-    this.models();
+    this.data();
     this.services();
     this.controllers();
     this.routersMiddleware();
@@ -95,15 +100,21 @@ class Application {
     this.app.use(morgan('dev'));
     this.app.use(methodOverride());
     this.app.use(express.json());
+    if (this.env.ACCESS_TOKEN_IN_COOKIE) {
+      this.app.use(cookieParser(this.env.COOKIE_SECRET));
+    }
   }
 
-  models() {
+  data() {
     this.models = {
       Practice: new Practice(this).build(),
       Phase: new Phase(this).build(),
       Module: new Module(this).build(),
       Word: new Word(this).build(),
       User: new User(this).build(),
+    };
+    this.dto = {
+      UserDto,
     };
   }
 
