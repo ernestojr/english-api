@@ -4,7 +4,7 @@ import { resolve } from 'path';
 config({ path: resolve(__dirname, '../../.env') });
 
 export default {
-  PORT: process.env.PORT || 3000,
+  PORT: process.env.PORT || 8080,
   MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost/express-test',
   NODE_ENV: process.env.NODE_ENV || 'development',
   JWT_SECRET: process.env.JWT_SECRET,
